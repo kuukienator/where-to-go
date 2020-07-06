@@ -15,9 +15,18 @@ const Home = () => (
             <h1>Where to go?</h1>
         </header>
         <main>
-            <Search />
+            {/* <Search /> */}
+            <div className="textForm">
+                <div className="textContainer">
+                    I'm looking for a <span className="textInput">bar</span>{' '}
+                    near <span className="textInput">Immermannstr. 40</span>. It
+                    should be <span className="textInput">cozy</span> and{' '}
+                    <span className="textInput">affordable</span>.
+                </div>
+                <button className="textButton">Find me a place ⇒</button>
+            </div>
         </main>
-        <footer>
+        {/* <footer>
             Built by{' '}
             <a
                 href="https://twitter.com/kuukienator"
@@ -26,15 +35,49 @@ const Home = () => (
             >
                 @kuukienator
             </a>
-        </footer>
+        </footer> */}
         <style jsx>{`
+            .textForm {
+                font-family: 'Bitter', serif;
+                margin: 1rem;
+            }
+            .textContainer {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .textInput {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+
+            .textButton {
+                font-family: 'Bitter', serif;
+                border: none;
+                background: black;
+                color:white;
+                border-radius: 0.5rem;
+                padding: 1rem 1.5rem;
+                font-size: 1.3rem;
+            }
+
+            main {
+                flex-grow:2;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
             .container {
                 display: flex;
                 flex-direction: column;
+                height 100vh;
             }
 
             h1 {
                 margin: 0.3rem 0.5rem;
+                font-size: 2.2rem;
+                margin: 1.75rem 0.5rem;
                 text-align: center;
             }
 
@@ -43,19 +86,10 @@ const Home = () => (
 
                 border-bottom: 2px solid var(--primary-color);
                 color: var(--primary-color);
+                /* border-bottom: 2px solid var(--primary-color);*/
+                /* color: var(--primary-color); */
             }
 
-            footer {
-                background: var(--primary-color);
-                color: white;
-                border-top: 2px solid white;
-                text-align: center;
-                padding: 0.3rem;
-                font-size: 0.7rem;
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-            }
 
             footer a {
                 color: white;
