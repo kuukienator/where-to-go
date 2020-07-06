@@ -90,6 +90,18 @@ const Home = () => (
                 /* color: var(--primary-color); */
             }
 
+            footer {
+                background: var(--primary-color);
+                color: white;
+                border-top: 2px solid white;
+                text-align: center;
+                padding: 0.3rem;
+                font-size: 0.7rem;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+
 
             footer a {
                 color: white;
