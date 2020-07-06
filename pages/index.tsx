@@ -84,10 +84,9 @@ const Home = () => (
             header {
                 font-family: 'Bitter', serif;
 
-                border-bottom: 2px solid var(--primary-color);
-                color: var(--primary-color);
                 /* border-bottom: 2px solid var(--primary-color);*/
                 /* color: var(--primary-color); */
+                color: black;
             }
 
             footer {
