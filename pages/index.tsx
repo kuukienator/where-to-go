@@ -5,7 +5,7 @@ import { useState } from 'react';
 import InlineTextBox from '../components/InlineTextBox';
 
 const Home = () => {
-    const [type, setType] = useState('bar');
+    const [type, setType] = useState('a bar');
     const [priceLevel, setPriceLevel] = useState('affordable');
     const [keywords, setKeywords] = useState('cozy');
     const [locationQuery, setLocationQuery] = useState('Immermannstr. 40');
@@ -17,7 +17,7 @@ const Home = () => {
                 <title>🍹🥙☕Where to go?</title>
                 <link rel="icon" href="/favicon.ico" />
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Bitter:wght@400,700&family=Open+Sans:wght@400;700&display=swap"
+                    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Zilla+Slab:wght@400;700&display=swap"
                     rel="stylesheet"
                 />
             </Head>
@@ -39,9 +39,14 @@ const Home = () => {
                     </div>
 
                     <div className="textContainer">
-                        I'm looking for a{' '}
+                        I'm looking for{' '}
                         <InlineSelect
-                            values={['anything', 'bar', 'cafe', 'restaurant']}
+                            values={[
+                                'anything',
+                                'a bar',
+                                'a cafe',
+                                'a restaurant',
+                            ]}
                             selected={type}
                             onChange={(event) => setType(event.target.value)}
                         />{' '}
@@ -96,7 +101,11 @@ const Home = () => {
             <style jsx>{`
         .textForm {
             font-family: 'Bitter', serif;
+            font-family: 'Zilla Slab', serif;
+
             margin: 1rem;
+            align-self: flex-start;
+            margin-top: 3rem;
         }
         .textContainer {
             font-size: 2.5rem;
@@ -110,12 +119,13 @@ const Home = () => {
 
         .textButton {
             font-family: 'Bitter', serif;
+            font-family: 'Zilla Slab', serif;
             border: none;
             background: black;
             color:white;
             border-radius: 0.5rem;
             padding: 1rem 1.5rem;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
         }
 
         main {
@@ -140,6 +150,7 @@ const Home = () => {
 
         header {
             font-family: 'Bitter', serif;
+            font-family: 'Zilla Slab', serif;
 
             /* border-bottom: 2px solid var(--primary-color);*/
             /* color: var(--primary-color); */
