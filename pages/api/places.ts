@@ -40,12 +40,13 @@ const getImageUrl = async (client: Client, entry) => {
 };
 
 export default async (req, res) => {
+    /*
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ places: hardCodedPlaces }));
 
     return;
-    /*
+    */
     const client = new Client({});
 
     const location = await getLocationFromAddress(client, req.query.adress);
@@ -90,5 +91,4 @@ export default async (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify({ places: placesWithImages }));
-    */
 };

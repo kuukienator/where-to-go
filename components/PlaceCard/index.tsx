@@ -132,7 +132,6 @@ const PlaceCard: FunctionComponent<Props> = ({
 
                 .information {
                     padding: 0.5rem;
-                    padding-bottom: 1rem;
                     background: black;
                     color: white;
 
