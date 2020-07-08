@@ -1,4 +1,6 @@
 import react, { FunctionComponent } from 'react';
+import MoneyIcon from '../../svg-icons/iconmonstr-currency-1.svg';
+import StarIcon from '../../svg-icons/iconmonstr-star-3.svg';
 
 type Props = {
     name: string;
@@ -44,12 +46,25 @@ const Stars: FunctionComponent<StarsProps> = ({ stars, starsTotal }) => {
 };
 
 const PriceLevel: FunctionComponent<PriceLevelProps> = ({ level }) => (
-    <div>
+    <div className="priceLevel">
         {Array(level)
             .fill('💰')
             .map((pl, i) => (
-                <span key={`price-level-${i}`}>{pl}</span>
+                <div key={`price-level-${i}`}>
+                    <MoneyIcon fill="white" width="20" height="20" />
+                </div>
             ))}
+        <style jsx>{`
+            .priceLevel {
+                display: flex;
+            }
+            div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 0.2rem;
+            }
+        `}</style>
     </div>
 );
 
@@ -64,14 +79,26 @@ const PlaceCard: FunctionComponent<Props> = ({
     return (
         <a className="placeCard" href={mapsUrl}>
             <div className="image">
-                <div className="counters">
+                {/* <div className="counters">
                     <Stars stars={Number(rating)} starsTotal={5} />
                     <PriceLevel level={priceLevel} />
-                </div>
+                </div> */}
             </div>
-            <div className="details">
-                <div className="name">{name}</div>
-                <div>{vicinity}</div>
+            <div className="information">
+                <div className="details">
+                    <div className="name">{name}</div>
+                    <div className="vicinity">{vicinity}</div>
+                </div>
+                <div className="inlineCounters">
+                    <div>
+                        <span>{rating}</span>
+                        <StarIcon fill="white" width="18" height="18" />
+                    </div>
+                    <div>
+                        <span>{priceLevel}</span>
+                        <MoneyIcon fill="white" width="18" height="18" />
+                    </div>
+                </div>
             </div>
 
             <style jsx>{`
@@ -103,11 +130,14 @@ const PlaceCard: FunctionComponent<Props> = ({
                     */
                 }
 
-                .details {
+                .information {
                     padding: 0.5rem;
                     padding-bottom: 1rem;
                     background: black;
                     color: white;
+
+                    display: flex;
+                    justify-content: space-between;
 
                     /*
                     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -123,6 +153,29 @@ const PlaceCard: FunctionComponent<Props> = ({
                     font-weight: bold;
                     font-size: 1.2rem;
                     margin-bottom: 0.5rem;
+                }
+
+                .vicinity {
+                    font-family: 'Open Sans', sans-serif;
+                }
+
+                .inlineCounters {
+                    font-size: 1.2rem;
+                    display: flex;
+                    flex-direction: column;
+                    border-left: 0.2rem solid;
+                }
+
+                .inlineCounters > div {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin: 0.2rem;
+                }
+
+                .inlineCounters span {
+                    margin: 0 1rem;
+                    margin-right: 0.5rem;
                 }
 
                 .counters {
