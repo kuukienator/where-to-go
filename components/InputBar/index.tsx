@@ -1,19 +1,5 @@
 import react, { useState, useEffect, FunctionComponent } from 'react';
-
-export type Location = {
-    longitude: number;
-    latitude: number;
-};
-
-export type PlaceRequest = {
-    location?: Location;
-    address: string;
-    type?: string;
-    maxPriceLevel: number;
-    minPriceLevel: number;
-    keyword?: string;
-};
-
+import { Location, PlaceRequest } from '../Search';
 type Props = {
     searchHandler: Function;
 };
@@ -29,16 +15,6 @@ const KEYWORDS = [
 
 const MIN_PRICE = 1;
 const MAX_PRICE = 4;
-
-const getLocation = (): Promise<Location> =>
-    new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition((location) => {
-            resolve({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-            });
-        }, reject);
-    });
 
 const SearchSummary = ({ locationQuery, type, keyword }) => {
     return (
@@ -95,6 +71,7 @@ const InputBar: FunctionComponent<Props> = ({ searchHandler }) => {
             minPriceLevel,
             type,
             keyword,
+            radius: 1,
         };
 
         if (!payload.address || payload.address === '') {

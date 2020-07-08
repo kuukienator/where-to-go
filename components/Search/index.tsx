@@ -1,6 +1,38 @@
-import react, { useState, useEffect } from 'react';
-import PlaceCard from '../PlaceCard';
-import InputBar, { PlaceRequest } from '../InputBar';
+import react, { useState, useEffect, FC } from 'react';
+import Loading from '../Loading';
+import PlacesList, { PlaceEntry } from '../PlacesList';
+import NoResults from '../NewResults';
+
+export const LOCATION_IDENTIFIER = '<GPS location>';
+export const NO_TYPE_IDENTIFIER = 'anthing';
+export const NO_KEYWORD_IDENTIFIER = '-';
+
+export type Location = {
+    longitude: number;
+    latitude: number;
+};
+
+export type PlaceRequest = {
+    location?: Location;
+    address: string;
+    type?: string;
+    maxPriceLevel: number;
+    minPriceLevel: number;
+    keyword?: string;
+    radius: number;
+};
+
+const transformToPlaces = (responsePlaces: any[]): PlaceEntry[] => {
+    return responsePlaces.map((e) => ({
+        geometry: e.geometry,
+        id: e.place_id,
+        image: e.image,
+        vicinity: e.vicinity,
+        rating: e.rating,
+        name: e.name,
+        priceLevel: e.price_level,
+    }));
+};
 
 const fetchPlaces = async ({
     location,
@@ -9,29 +41,31 @@ const fetchPlaces = async ({
     maxPriceLevel,
     minPriceLevel,
     keyword,
-}: PlaceRequest) => {
+    radius,
+}: PlaceRequest): Promise<PlaceEntry[]> => {
     const API_URL = '/api/places';
 
-    // const response = await fetch(
-    //     `${API_URL}?lat=${location.latitude}&long=${
-    //         location.longitude
-    //     }&maxPrice=${maxPriceLevel}&minPrice=${minPriceLevel}&types=${types.join(
-    //         ','
-    //     )}&keyword=${keyword || ''}`
-    // );
+    let url = `${API_URL}?maxPrice=${maxPriceLevel}&minPrice=${minPriceLevel}&radius=${radius}`;
 
-    const response = await fetch(
-        `${API_URL}?maxPrice=${maxPriceLevel}&minPrice=${minPriceLevel}&type=${type}&adress=${address}&keyword=${
-            keyword || ''
-        }`
-    );
+    if (type !== NO_TYPE_IDENTIFIER) {
+        url += `&type=${type}`;
+    }
+
+    if (keyword !== NO_KEYWORD_IDENTIFIER) {
+        url += `&keyword=${keyword || ''}`;
+    }
+
+    if (location && address === LOCATION_IDENTIFIER) {
+        url += `&lat=${location.latitude}&long=${location.longitude}`;
+    } else {
+        url += `&adress=${address}`;
+    }
+
+    const response = await fetch(url);
     const { places } = await response.json();
 
-    return places;
+    return transformToPlaces(places);
 };
-
-const buildMapsUrl = (lat, long, placeId) =>
-    `https://www.google.com/maps/search/?api=1&query=${lat},${long}&query_place_id=${placeId}`;
 
 const LoadingSpinner = () => {
     return (
@@ -86,12 +120,17 @@ const LoadingSpinner = () => {
     );
 };
 
-const Search = () => {
-    const [location, setLocation] = useState<Location>();
-    const [places, setPlaces] = useState<any[]>([]);
-    const [loading, setLoading] = useState<Boolean>(false);
+type Props = {
+    placeRequest: PlaceRequest;
+    openSearch: Function;
+};
+
+const Search: FC<Props> = ({ placeRequest, openSearch }) => {
+    const [places, setPlaces] = useState<PlaceEntry[]>([]);
+    const [loading, setLoading] = useState<Boolean>(true);
 
     const getPlaces = async (placeRequest: PlaceRequest) => {
+        console.log('placeRequest', placeRequest);
         setLoading(true);
         const places = await fetchPlaces(placeRequest);
         setPlaces(places);
@@ -99,55 +138,18 @@ const Search = () => {
     };
 
     useEffect(() => {
-        const getData = async () => {
-            // const location = await getLocation();
-            // console.log(location);
-            // const places = await fetchPlaces({
-            //     location,
-            //     types: ['bar'],
-            //     maxPriceLevel: 4,
-            //     minPriceLevel: 1,
-            // });
-            // console.log('places', places);
-            // // const places = await getPlaces(position);
-            // setLocation(location);
-            // setPlaces(places);
-        };
+        getPlaces(placeRequest);
+    }, [placeRequest]);
 
-        // getData();
-    }, []);
+    if (loading) {
+        return <Loading />;
+    }
 
-    return (
-        <div className="searchContainers">
-            <InputBar
-                searchHandler={(payload: PlaceRequest) => getPlaces(payload)}
-            />
-            {loading && <LoadingSpinner />}
-            {!loading &&
-                places.map((place) => (
-                    <PlaceCard
-                        key={place.place_id}
-                        image={place.image}
-                        name={place.name}
-                        vicinity={place.vicinity}
-                        priceLevel={place.price_level}
-                        rating={place.rating}
-                        mapsUrl={buildMapsUrl(
-                            place.geometry.location.lat,
-                            place.geometry.location.lng,
-                            place.place_id
-                        )}
-                    />
-                ))}
-            <style jsx>{`
-                .searchContainer {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-            `}</style>
-        </div>
-    );
+    if (!places || places.length === 0) {
+        return <NoResults openSearch={openSearch} />;
+    }
+
+    return <PlacesList places={places} openSearch={openSearch} />;
 };
 
 export default Search;
