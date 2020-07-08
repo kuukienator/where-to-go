@@ -40,7 +40,12 @@ const Home = () => {
                 )}
                 {currentPage === Pages.Loading && <Loading />}
                 {currentPage === Pages.PlacesList && (
-                    <Search placeRequest={placeRequest} />
+                    <Search
+                        placeRequest={placeRequest}
+                        openSearch={() => {
+                            setCurrentPage(Pages.Search);
+                        }}
+                    />
                 )}
                 {/* <Search /> */}
             </main>
@@ -147,6 +152,8 @@ const Home = () => {
                         Helvetica Neue, sans-serif;
 
                     font-family: 'Open Sans', sans-serif;
+                    font-family: 'Bitter', serif;
+                    font-family: 'Zilla Slab', serif;
 
                     background: white;
                     color: black;

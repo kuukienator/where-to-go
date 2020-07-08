@@ -113,9 +113,10 @@ const LoadingSpinner = () => {
 
 type Props = {
     placeRequest: PlaceRequest;
+    openSearch: Function;
 };
 
-const Search: FC<Props> = ({ placeRequest }) => {
+const Search: FC<Props> = ({ placeRequest, openSearch }) => {
     const [places, setPlaces] = useState<PlaceEntry[]>([]);
     const [loading, setLoading] = useState<Boolean>(true);
 
@@ -139,7 +140,7 @@ const Search: FC<Props> = ({ placeRequest }) => {
         return <div>Nothing found</div>;
     }
 
-    return <PlacesList places={places} />;
+    return <PlacesList places={places} openSearch={openSearch} />;
 };
 
 export default Search;

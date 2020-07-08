@@ -76,6 +76,7 @@ const PlaceCard: FunctionComponent<Props> = ({
 
             <style jsx>{`
                 .placeCard {
+                    font-family: inherit;
                     margin: 0.5rem 1rem;
                     display: block;
                     text-decoration: none;
@@ -92,30 +93,36 @@ const PlaceCard: FunctionComponent<Props> = ({
                     background-size: cover;
                     background-repeat: no-repeat;
 
+                    /*
                     border-top-left-radius: 1.5rem;
                     border-top-right-radius: 1.5rem;
 
                     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
                         0px 1px 1px 0px rgba(0, 0, 0, 0.14),
                         0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+                    */
                 }
 
                 .details {
                     padding: 0.5rem;
                     padding-bottom: 1rem;
+                    background: black;
+                    color: white;
 
+                    /*
                     box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
                         0px 1px 1px 0px rgba(0, 0, 0, 0.14),
                         0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
                     border-bottom-right-radius: 1.5rem;
                     border-bottom-left-radius: 1.5rem;
+                    */
                 }
 
                 .name {
                     font-weight: bold;
                     font-size: 1.2rem;
-                    color: var(--primary-color);
+                    margin-bottom: 0.5rem;
                 }
 
                 .counters {
