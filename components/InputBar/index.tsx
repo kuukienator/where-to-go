@@ -1,5 +1,5 @@
 import react, { useState, useEffect, FunctionComponent } from 'react';
-
+import { Location, PlaceRequest } from '../Search';
 type Props = {
     searchHandler: Function;
 };
@@ -81,6 +81,7 @@ const InputBar: FunctionComponent<Props> = ({ searchHandler }) => {
             minPriceLevel,
             type,
             keyword,
+            radius: 1,
         };
 
         if (!payload.address || payload.address === '') {
