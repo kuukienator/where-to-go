@@ -1,15 +1,25 @@
 import Head from 'next/head';
-import Search from '../components/Search';
+import Search, { PlaceRequest } from '../components/Search';
 import InlineSelect from '../components/InlineSelect';
 import { useState } from 'react';
 import InlineTextBox from '../components/InlineTextBox';
+import TextSearch from '../components/TextSearch';
+import Loading from '../components/Loading';
+
+enum Pages {
+    Search = 'Search',
+    Loading = 'Loading',
+    PlacesList = 'PlacesList',
+}
 
 const Home = () => {
-    const [type, setType] = useState('a bar');
-    const [priceLevel, setPriceLevel] = useState('affordable');
-    const [keywords, setKeywords] = useState('cozy');
-    const [locationQuery, setLocationQuery] = useState('Immermannstr. 40');
-    const [radius, setRadius] = useState('500m');
+    const [currentPage, setCurrentPage] = useState<Pages>(Pages.Search);
+    const [placeRequest, setPlaceRequest] = useState<PlaceRequest | null>(null);
+
+    const onSubmitHandler = (placeRequest: PlaceRequest) => {
+        setPlaceRequest(placeRequest);
+        setCurrentPage(Pages.PlacesList);
+    };
 
     return (
         <div className="container">
@@ -25,68 +35,14 @@ const Home = () => {
                 <h1>Where to go?</h1>
             </header>
             <main>
+                {currentPage === Pages.Search && (
+                    <TextSearch onSubmit={onSubmitHandler} />
+                )}
+                {currentPage === Pages.Loading && <Loading />}
+                {currentPage === Pages.PlacesList && (
+                    <Search placeRequest={placeRequest} />
+                )}
                 {/* <Search /> */}
-                <div className="textForm">
-                    <div className="textContainer">
-                        I'm here
-                        <InlineTextBox
-                            onChange={(event) =>
-                                setLocationQuery(event.target.value)
-                            }
-                            value={locationQuery}
-                        />
-                        .
-                    </div>
-
-                    <div className="textContainer">
-                        I'm looking for{' '}
-                        <InlineSelect
-                            values={[
-                                'anything',
-                                'a bar',
-                                'a cafe',
-                                'a restaurant',
-                            ]}
-                            selected={type}
-                            onChange={(event) => setType(event.target.value)}
-                        />{' '}
-                        within{' '}
-                        <InlineSelect
-                            values={['500m', '1000m', '1500m', '2000m']}
-                            selected={radius}
-                            onChange={(event) => setRadius(event.target.value)}
-                        />{' '}
-                        . It should be{' '}
-                        <InlineSelect
-                            values={[
-                                'cheap',
-                                'affordable',
-                                'expensive',
-                                'luxurious',
-                            ]}
-                            selected={priceLevel}
-                            onChange={(event) =>
-                                setPriceLevel(event.target.value)
-                            }
-                        />{' '}
-                        and{' '}
-                        <InlineSelect
-                            values={[
-                                'cozy',
-                                'romantic',
-                                'good for groups',
-                                'upscale',
-                                'have cocktails',
-                            ]}
-                            selected={keywords}
-                            onChange={(event) =>
-                                setKeywords(event.target.value)
-                            }
-                        />
-                        .
-                    </div>
-                    <button className="textButton">Find me a place</button>
-                </div>
             </main>
             {/* <footer>
         Built by{' '}

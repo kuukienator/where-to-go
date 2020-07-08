@@ -5,15 +5,23 @@ import react, {
     ChangeEvent,
 } from 'react';
 
+export type DropdownEntry = {
+    value: string | number;
+    label: string;
+};
+
 type Props = {
-    values: string[];
-    selected?: string;
-    onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+    entries: DropdownEntry[];
+    selected?: DropdownEntry;
+    onChange: (dropdownEntry: DropdownEntry) => void;
     inverse?: boolean;
 };
 
+const getEntryByValue = (entries: DropdownEntry[], value: string | number) =>
+    entries.find((e) => e.value === value);
+
 const InlineSelect: FunctionComponent<Props> = ({
-    values,
+    entries,
     onChange,
     selected,
     inverse,
@@ -22,12 +30,14 @@ const InlineSelect: FunctionComponent<Props> = ({
         <>
             <select
                 className={inverse ? 'inverse' : ''}
-                value={!!selected ? selected : values[0]}
-                onChange={onChange}
+                value={!!selected ? selected.value : entries[0].value}
+                onChange={(event) =>
+                    onChange(getEntryByValue(entries, event.target.value))
+                }
             >
-                {values.map((v) => (
-                    <option value={v} key={v}>
-                        {v}
+                {entries.map((entry) => (
+                    <option value={entry.value} key={entry.value}>
+                        {entry.label}
                     </option>
                 ))}
             </select>

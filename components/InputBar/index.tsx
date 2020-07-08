@@ -1,19 +1,5 @@
 import react, { useState, useEffect, FunctionComponent } from 'react';
 
-export type Location = {
-    longitude: number;
-    latitude: number;
-};
-
-export type PlaceRequest = {
-    location?: Location;
-    address: string;
-    type?: string;
-    maxPriceLevel: number;
-    minPriceLevel: number;
-    keyword?: string;
-};
-
 type Props = {
     searchHandler: Function;
 };

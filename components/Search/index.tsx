@@ -1,6 +1,33 @@
-import react, { useState, useEffect } from 'react';
-import PlaceCard from '../PlaceCard';
-import InputBar, { PlaceRequest } from '../InputBar';
+import react, { useState, useEffect, FC } from 'react';
+import Loading from '../Loading';
+import PlacesList, { PlaceEntry } from '../PlacesList';
+
+export type Location = {
+    longitude: number;
+    latitude: number;
+};
+
+export type PlaceRequest = {
+    location?: Location;
+    address: string;
+    type?: string;
+    maxPriceLevel: number;
+    minPriceLevel: number;
+    keyword?: string;
+    radius: number;
+};
+
+const transformToPlaces = (responsePlaces: any[]): PlaceEntry[] => {
+    return responsePlaces.map((e) => ({
+        geometry: e.geometry,
+        id: e.place_id,
+        image: e.image,
+        vicinity: e.vicinity,
+        rating: e.rating,
+        name: e.name,
+        priceLevel: e.price_level,
+    }));
+};
 
 const fetchPlaces = async ({
     location,
@@ -9,7 +36,8 @@ const fetchPlaces = async ({
     maxPriceLevel,
     minPriceLevel,
     keyword,
-}: PlaceRequest) => {
+    radius,
+}: PlaceRequest): Promise<PlaceEntry[]> => {
     const API_URL = '/api/places';
 
     // const response = await fetch(
@@ -21,17 +49,14 @@ const fetchPlaces = async ({
     // );
 
     const response = await fetch(
-        `${API_URL}?maxPrice=${maxPriceLevel}&minPrice=${minPriceLevel}&type=${type}&adress=${address}&keyword=${
+        `${API_URL}?maxPrice=${maxPriceLevel}&minPrice=${minPriceLevel}&type=${type}&radius=${radius}&adress=${address}&keyword=${
             keyword || ''
         }`
     );
     const { places } = await response.json();
 
-    return places;
+    return transformToPlaces(places);
 };
-
-const buildMapsUrl = (lat, long, placeId) =>
-    `https://www.google.com/maps/search/?api=1&query=${lat},${long}&query_place_id=${placeId}`;
 
 const LoadingSpinner = () => {
     return (
@@ -86,12 +111,16 @@ const LoadingSpinner = () => {
     );
 };
 
-const Search = () => {
-    const [location, setLocation] = useState<Location>();
-    const [places, setPlaces] = useState<any[]>([]);
-    const [loading, setLoading] = useState<Boolean>(false);
+type Props = {
+    placeRequest: PlaceRequest;
+};
+
+const Search: FC<Props> = ({ placeRequest }) => {
+    const [places, setPlaces] = useState<PlaceEntry[]>([]);
+    const [loading, setLoading] = useState<Boolean>(true);
 
     const getPlaces = async (placeRequest: PlaceRequest) => {
+        console.log('placeRequest', placeRequest);
         setLoading(true);
         const places = await fetchPlaces(placeRequest);
         setPlaces(places);
@@ -99,55 +128,18 @@ const Search = () => {
     };
 
     useEffect(() => {
-        const getData = async () => {
-            // const location = await getLocation();
-            // console.log(location);
-            // const places = await fetchPlaces({
-            //     location,
-            //     types: ['bar'],
-            //     maxPriceLevel: 4,
-            //     minPriceLevel: 1,
-            // });
-            // console.log('places', places);
-            // // const places = await getPlaces(position);
-            // setLocation(location);
-            // setPlaces(places);
-        };
+        getPlaces(placeRequest);
+    }, [placeRequest]);
 
-        // getData();
-    }, []);
+    if (loading) {
+        return <Loading />;
+    }
 
-    return (
-        <div className="searchContainers">
-            <InputBar
-                searchHandler={(payload: PlaceRequest) => getPlaces(payload)}
-            />
-            {loading && <LoadingSpinner />}
-            {!loading &&
-                places.map((place) => (
-                    <PlaceCard
-                        key={place.place_id}
-                        image={place.image}
-                        name={place.name}
-                        vicinity={place.vicinity}
-                        priceLevel={place.price_level}
-                        rating={place.rating}
-                        mapsUrl={buildMapsUrl(
-                            place.geometry.location.lat,
-                            place.geometry.location.lng,
-                            place.place_id
-                        )}
-                    />
-                ))}
-            <style jsx>{`
-                .searchContainer {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-            `}</style>
-        </div>
-    );
+    if (!places || places.length === 0) {
+        return <div>Nothing found</div>;
+    }
+
+    return <PlacesList places={places} />;
 };
 
 export default Search;

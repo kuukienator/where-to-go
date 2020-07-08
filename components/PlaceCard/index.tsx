@@ -83,10 +83,6 @@ const PlaceCard: FunctionComponent<Props> = ({
                     color: black;
                 }
 
-                .placeCard:first-child {
-                    border-top: 2px solid;
-                }
-
                 .image {
                     background-image: url(${image});
                     width: 100%;
