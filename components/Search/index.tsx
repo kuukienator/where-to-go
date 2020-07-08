@@ -3,6 +3,10 @@ import Loading from '../Loading';
 import PlacesList, { PlaceEntry } from '../PlacesList';
 import NoResults from '../NewResults';
 
+export const LOCATION_IDENTIFIER = '<GPS location>';
+export const NO_TYPE_IDENTIFIER = 'anthing';
+export const NO_KEYWORD_IDENTIFIER = '-';
+
 export type Location = {
     longitude: number;
     latitude: number;
@@ -41,19 +45,23 @@ const fetchPlaces = async ({
 }: PlaceRequest): Promise<PlaceEntry[]> => {
     const API_URL = '/api/places';
 
-    // const response = await fetch(
-    //     `${API_URL}?lat=${location.latitude}&long=${
-    //         location.longitude
-    //     }&maxPrice=${maxPriceLevel}&minPrice=${minPriceLevel}&types=${types.join(
-    //         ','
-    //     )}&keyword=${keyword || ''}`
-    // );
+    let url = `${API_URL}?maxPrice=${maxPriceLevel}&minPrice=${minPriceLevel}&radius=${radius}`;
 
-    const response = await fetch(
-        `${API_URL}?maxPrice=${maxPriceLevel}&minPrice=${minPriceLevel}&type=${type}&radius=${radius}&adress=${address}&keyword=${
-            keyword || ''
-        }`
-    );
+    if (type !== NO_TYPE_IDENTIFIER) {
+        url += `&type=${type}`;
+    }
+
+    if (keyword !== NO_KEYWORD_IDENTIFIER) {
+        url += `&keyword=${keyword || ''}`;
+    }
+
+    if (location && address === LOCATION_IDENTIFIER) {
+        url += `&lat=${location.latitude}&long=${location.longitude}`;
+    } else {
+        url += `&adress=${address}`;
+    }
+
+    const response = await fetch(url);
     const { places } = await response.json();
 
     return transformToPlaces(places);

@@ -49,23 +49,29 @@ export default async (req, res) => {
     */
     const client = new Client({});
 
-    const location = await getLocationFromAddress(client, req.query.adress);
     const request = {
         key: API_KEY,
-        location: {
-            lat: Number(req.query.lat),
-            lng: Number(req.query.long),
-        },
         radius: Number(req.query.radius),
         type: req.query.type || '',
         opennow: true,
         maxprice: Number(req.query.maxPrice),
         minprice: Number(req.query.minPrice),
-        keyword: req.query.keyword || '',
+        // keyword: req.query.keyword || '',
         rankby: PlacesNearbyRanking.prominence,
+        location: {},
     };
 
-    request.location = location;
+    if (req.query.lat && req.query.long) {
+        request.location = {
+            lat: Number(req.query.lat),
+            lng: Number(req.query.long),
+        };
+    } else {
+        request.location = await getLocationFromAddress(
+            client,
+            req.query.adress
+        );
+    }
 
     console.log('request', request);
     const places = await client.placesNearby({
@@ -87,6 +93,8 @@ export default async (req, res) => {
             }
         })
     );
+
+    console.log('placesWithImages', placesWithImages.length);
 
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');

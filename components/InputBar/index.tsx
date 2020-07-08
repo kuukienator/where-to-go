@@ -16,16 +16,6 @@ const KEYWORDS = [
 const MIN_PRICE = 1;
 const MAX_PRICE = 4;
 
-const getLocation = (): Promise<Location> =>
-    new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition((location) => {
-            resolve({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-            });
-        }, reject);
-    });
-
 const SearchSummary = ({ locationQuery, type, keyword }) => {
     return (
         <div className="searchSummary">

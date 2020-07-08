@@ -1,7 +1,13 @@
 import react, { useState, FC } from 'react';
 import InlineTextBox from '../InlineTextBox';
 import InlineSelect, { DropdownEntry } from '../InlineSelect';
-import { PlaceRequest } from '../Search';
+import {
+    PlaceRequest,
+    Location,
+    LOCATION_IDENTIFIER,
+    NO_TYPE_IDENTIFIER,
+    NO_KEYWORD_IDENTIFIER,
+} from '../Search';
 import TextButton from '../TextButton';
 
 type Props = {
@@ -9,7 +15,7 @@ type Props = {
 };
 
 const typeEntries: DropdownEntry[] = [
-    { label: 'anything', value: 'anything' },
+    { label: 'anything', value: NO_TYPE_IDENTIFIER },
     { label: 'a bar', value: 'bar' },
     { label: 'a cafe', value: 'cafe' },
     { label: 'a restaurant', value: 'restaurant' },
@@ -20,14 +26,21 @@ const radiusEntries: DropdownEntry[] = [
     { label: '1000m', value: '1000' },
     { label: '1500m', value: '1500' },
     { label: '2000m', value: '2000' },
+    { label: '3000m', value: '3000' },
 ];
 
 const keywordsEntries: DropdownEntry[] = [
+    { label: '-', value: NO_KEYWORD_IDENTIFIER },
     { label: 'cozy', value: 'cozy' },
     { label: 'romantic', value: 'romantic' },
     { label: 'good for groups', value: 'good for groups' },
     { label: 'have cocktails', value: 'have cocktails' },
     { label: 'upscale', value: 'upscale' },
+    { label: 'hipster', value: 'hipster' },
+    { label: 'vegan', value: 'vegan' },
+    { label: 'vegetarian', value: 'vegetarian' },
+    { label: 'trendy', value: 'trendy' },
+    { label: 'popular', value: 'popular' },
 ];
 
 const priceLevelEntries: DropdownEntry[] = [
@@ -37,18 +50,30 @@ const priceLevelEntries: DropdownEntry[] = [
     { label: 'luxurious', value: '4' },
 ];
 
+const getLocation = (): Promise<Location> =>
+    new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition((location) => {
+            resolve({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+            });
+        }, reject);
+    });
+
 const TextSearch: FC<Props> = ({ onSubmit }) => {
     const [type, setType] = useState<DropdownEntry>(typeEntries[1]);
     const [priceLevel, setPriceLevel] = useState<DropdownEntry>(
         priceLevelEntries[0]
     );
-    const [keywords, setKeywords] = useState<DropdownEntry>(keywordsEntries[0]);
+    const [keywords, setKeywords] = useState<DropdownEntry>(keywordsEntries[1]);
     const [locationQuery, setLocationQuery] = useState('Immermannstr. 40');
-    const [radius, setRadius] = useState<DropdownEntry>(radiusEntries[0]);
+    const [location, setLocation] = useState<Location | null>(null);
+    const [radius, setRadius] = useState<DropdownEntry>(radiusEntries[1]);
 
     const submitHandler = () => {
         const payload: PlaceRequest = {
             address: locationQuery,
+            location,
             maxPriceLevel: Number(priceLevel.value),
             minPriceLevel: 1,
             type: type.value as string,
@@ -59,18 +84,32 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
         onSubmit(payload);
     };
 
+    const onLocationFinderClick = async () => {
+        try {
+            const location = await getLocation();
+            console.log(location);
+            setLocation(location);
+            setLocationQuery(LOCATION_IDENTIFIER);
+        } catch (e) {
+            console.log('onLocationFinderClick', e);
+            setLocation(null);
+            setLocationQuery('');
+        }
+    };
+
     return (
         <>
             <div className="textForm">
                 <div className="textContainer">
-                    I'm here
+                    I'm here,
                     <InlineTextBox
                         onChange={(event) =>
                             setLocationQuery(event.target.value)
                         }
+                        onButtonClick={onLocationFinderClick}
                         value={locationQuery}
                     />
-                    .
+                    {/* . */}
                 </div>
 
                 <div className="textContainer">
@@ -115,7 +154,7 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
                 }
                 .textContainer {
                     font-size: 2.5rem;
-                    margin-bottom: 2rem;
+                    margin-bottom: 3.5rem;
                 }
 
                 .textInput {
