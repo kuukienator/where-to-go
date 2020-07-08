@@ -1,6 +1,7 @@
 import react, { useState, useEffect, FC } from 'react';
 import Loading from '../Loading';
 import PlacesList, { PlaceEntry } from '../PlacesList';
+import NoResults from '../NewResults';
 
 export type Location = {
     longitude: number;
@@ -137,7 +138,7 @@ const Search: FC<Props> = ({ placeRequest, openSearch }) => {
     }
 
     if (!places || places.length === 0) {
-        return <div>Nothing found</div>;
+        return <NoResults openSearch={openSearch} />;
     }
 
     return <PlacesList places={places} openSearch={openSearch} />;

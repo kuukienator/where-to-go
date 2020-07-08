@@ -2,6 +2,7 @@ import react, { useState, FC } from 'react';
 import InlineTextBox from '../InlineTextBox';
 import InlineSelect, { DropdownEntry } from '../InlineSelect';
 import { PlaceRequest } from '../Search';
+import TextButton from '../TextButton';
 
 type Props = {
     onSubmit: (placeRequest: PlaceRequest) => void;
@@ -101,9 +102,7 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
                     />
                     .
                 </div>
-                <button className="textButton" onClick={submitHandler}>
-                    Find me a place
-                </button>
+                <TextButton onClick={submitHandler}>Find me a place</TextButton>
             </div>
             <style jsx>{`
                 .textForm {
@@ -122,17 +121,6 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
                 .textInput {
                     font-weight: bold;
                     text-decoration: underline;
-                }
-
-                .textButton {
-                    font-family: 'Bitter', serif;
-                    font-family: 'Zilla Slab', serif;
-                    border: none;
-                    background: black;
-                    color: white;
-                    border-radius: 0.5rem;
-                    padding: 1rem 1.5rem;
-                    font-size: 1.6rem;
                 }
             `}</style>
         </>
