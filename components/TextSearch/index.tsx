@@ -15,10 +15,10 @@ const typeEntries: DropdownEntry[] = [
 ];
 
 const radiusEntries: DropdownEntry[] = [
-    { label: '500m', value: 500 },
-    { label: '1000m', value: 1000 },
-    { label: '1500m', value: 1500 },
-    { label: '2000m', value: 2000 },
+    { label: '500m', value: '500' },
+    { label: '1000m', value: '1000' },
+    { label: '1500m', value: '1500' },
+    { label: '2000m', value: '2000' },
 ];
 
 const keywordsEntries: DropdownEntry[] = [
@@ -30,10 +30,10 @@ const keywordsEntries: DropdownEntry[] = [
 ];
 
 const priceLevelEntries: DropdownEntry[] = [
-    { label: 'cheap', value: 1 },
-    { label: 'affordable', value: 2 },
-    { label: 'expensive', value: 3 },
-    { label: 'luxurious', value: 4 },
+    { label: 'cheap', value: '1' },
+    { label: 'affordable', value: '2' },
+    { label: 'expensive', value: '3' },
+    { label: 'luxurious', value: '4' },
 ];
 
 const TextSearch: FC<Props> = ({ onSubmit }) => {
