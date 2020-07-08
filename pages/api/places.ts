@@ -1,4 +1,8 @@
-import { Client, PlaceInputType } from '@googlemaps/google-maps-services-js';
+import {
+    Client,
+    PlaceInputType,
+    LatLng,
+} from '@googlemaps/google-maps-services-js';
 import { PlacesNearbyRanking } from '@googlemaps/google-maps-services-js/dist/places/placesnearby';
 import { hardCodedPlaces } from '../../data/places';
 
@@ -39,6 +43,17 @@ const getImageUrl = async (client: Client, entry) => {
     return image.request.res.responseUrl;
 };
 
+const getLocation = async (client: Client, query): Promise<LatLng> => {
+    if (query.lat && query.long) {
+        return {
+            lat: Number(query.lat),
+            lng: Number(query.long),
+        };
+    } else {
+        return await getLocationFromAddress(client, query.adress);
+    }
+};
+
 export default async (req, res) => {
     /*
     res.statusCode = 200;
@@ -58,20 +73,8 @@ export default async (req, res) => {
         minprice: Number(req.query.minPrice),
         // keyword: req.query.keyword || '',
         rankby: PlacesNearbyRanking.prominence,
-        location: {},
+        location: await getLocation(client, req.query),
     };
-
-    if (req.query.lat && req.query.long) {
-        request.location = {
-            lat: Number(req.query.lat),
-            lng: Number(req.query.long),
-        };
-    } else {
-        request.location = await getLocationFromAddress(
-            client,
-            req.query.adress
-        );
-    }
 
     console.log('request', request);
     const places = await client.placesNearby({
