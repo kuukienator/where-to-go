@@ -11,19 +11,30 @@ type Props = {
     value?: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     onButtonClick: (event) => void;
+    hideButton: boolean;
+    placeholder?: string;
 };
 
 const InlineTextBox: FunctionComponent<Props> = ({
     onChange,
     value,
     onButtonClick,
+    hideButton,
+    placeholder,
 }) => {
     return (
         <div className="container">
-            <input type="text" value={value} onChange={onChange} />
-            <div className="iconContainer" onClick={onButtonClick}>
-                <LocationIcon fill="white" />
-            </div>
+            <input
+                type="text"
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder}
+            />
+            {!hideButton && (
+                <div className="iconContainer" onClick={onButtonClick}>
+                    <LocationIcon fill="white" />
+                </div>
+            )}
             <style jsx>{`
                 input {
                     font-size: inherit;
@@ -32,7 +43,7 @@ const InlineTextBox: FunctionComponent<Props> = ({
                     font-family: inherit;
                     font-weight: bold;
                     border-bottom: 0.4rem solid;
-                    width: 85%;
+                    width: ${hideButton ? '100%' : '85%'};
                 }
                 .container {
                     display: flex;

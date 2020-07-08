@@ -1,4 +1,4 @@
-import react, { useState, FC } from 'react';
+import react, { useState, FC, useEffect } from 'react';
 import InlineTextBox from '../InlineTextBox';
 import InlineSelect, { DropdownEntry } from '../InlineSelect';
 import {
@@ -60,15 +60,30 @@ const getLocation = (): Promise<Location> =>
         }, reject);
     });
 
+const getPermission = async (name: PermissionName) =>
+    navigator.permissions.query({ name });
+
 const TextSearch: FC<Props> = ({ onSubmit }) => {
     const [type, setType] = useState<DropdownEntry>(typeEntries[1]);
     const [priceLevel, setPriceLevel] = useState<DropdownEntry>(
-        priceLevelEntries[0]
+        priceLevelEntries[1]
     );
     const [keywords, setKeywords] = useState<DropdownEntry>(keywordsEntries[1]);
     const [locationQuery, setLocationQuery] = useState('Immermannstr. 40');
     const [location, setLocation] = useState<Location | null>(null);
     const [radius, setRadius] = useState<DropdownEntry>(radiusEntries[1]);
+    const [
+        locationPermisson,
+        setLocationPermission,
+    ] = useState<PermissionStatus | null>(null);
+
+    useEffect(() => {
+        const init = async () => {
+            const permission = await getPermission('geolocation');
+            setLocationPermission(permission);
+        };
+        init();
+    }, []);
 
     const submitHandler = () => {
         const payload: PlaceRequest = {
@@ -91,6 +106,7 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
             setLocation(location);
             setLocationQuery(LOCATION_IDENTIFIER);
         } catch (e) {
+            // TODO: display notification
             console.log('onLocationFinderClick', e);
             setLocation(null);
             setLocationQuery('');
@@ -106,8 +122,13 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
                         onChange={(event) =>
                             setLocationQuery(event.target.value)
                         }
+                        hideButton={
+                            locationPermisson &&
+                            locationPermisson.state === 'denied'
+                        }
                         onButtonClick={onLocationFinderClick}
                         value={locationQuery}
+                        placeholder="Address, street,..."
                     />
                     {/* . */}
                 </div>
