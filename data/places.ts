@@ -388,8 +388,7 @@ export const hardCodedPlaces = [
         types: ['bar', 'point_of_interest', 'establishment'],
         user_ratings_total: 171,
         vicinity: 'Grabbepl. 4, Düsseldorf',
-        image:
-            'https://lh3.googleusercontent.com/p/AF1QipMCMpX0l-DDXim--_zYnjBWKUBET577rYoY-TQa=s1600-w400',
+        image: 'https://images.toubiz.de/image/big2/33475_03.jpg',
     },
     {
         business_status: 'OPERATIONAL',
@@ -434,8 +433,7 @@ export const hardCodedPlaces = [
         ],
         user_ratings_total: 1227,
         vicinity: 'Adersstraße 21, Düsseldorf',
-        image:
-            'https://lh3.googleusercontent.com/p/AF1QipOfLKPp-uQ5kA3nuGejNsPGdphuDtcdnNdAmhbU=s1600-w400',
+        image: 'https://images.toubiz.de/image/big2/33475_03.jpg',
     },
     {
         business_status: 'OPERATIONAL',
@@ -481,7 +479,7 @@ export const hardCodedPlaces = [
         user_ratings_total: 1325,
         vicinity: 'Bolkerstraße 44, Düsseldorf',
         image:
-            'https://lh3.googleusercontent.com/p/AF1QipNK4SSQ4Kj8syKnYROYBKWeRaYLr4SuG0S_4Xaq=s1600-w400',
+            'https://www.berlin.de/binaries/asset/image_assets/6059707/ratio_2_1/1580290150/972x486/',
     },
     {
         business_status: 'OPERATIONAL',
@@ -527,7 +525,7 @@ export const hardCodedPlaces = [
         user_ratings_total: 1822,
         vicinity: 'Hafenstraße 5, Düsseldorf',
         image:
-            'https://lh3.googleusercontent.com/p/AF1QipNImfi06hxWRnClkYbwfkTypvYRvxHG3au0T83J=s1600-w400',
+            'https://www.berlin.de/binaries/asset/image_assets/6059707/ratio_2_1/1580290150/972x486/',
     },
     {
         business_status: 'OPERATIONAL',
@@ -566,7 +564,7 @@ export const hardCodedPlaces = [
         user_ratings_total: 96,
         vicinity: 'Grupellostraße 32, Düsseldorf',
         image:
-            'https://lh3.googleusercontent.com/p/AF1QipOdkAGb9WlQrDdJjgX15FA8_41D_pk2PuUaPcSn=s1600-w400',
+            'https://www.berlin.de/binaries/asset/image_assets/6059707/ratio_2_1/1580290150/972x486/',
     },
     {
         business_status: 'OPERATIONAL',
@@ -605,7 +603,7 @@ export const hardCodedPlaces = [
         user_ratings_total: 442,
         vicinity: 'Joseph-Beuys-Ufer 27, Düsseldorf',
         image:
-            'https://lh3.googleusercontent.com/p/AF1QipOVGJKBSyth8untygSU0LWU_VqPQO2pu0l8ZqO0=s1600-w400',
+            'https://www.liebieghaus.de/sites/default/files/slideshow/lh_cafe_aussenansicht_3_heller.jpg',
     },
     {
         business_status: 'OPERATIONAL',
@@ -650,6 +648,6 @@ export const hardCodedPlaces = [
         user_ratings_total: 437,
         vicinity: 'Ratinger Str. 18, Düsseldorf',
         image:
-            'https://lh3.googleusercontent.com/p/AF1QipMXs0i49p9TpE5nC0k_iRIAuQf_iSj5-k3-kEPh=s1600-w400',
+            'https://www.liebieghaus.de/sites/default/files/slideshow/lh_cafe_aussenansicht_3_heller.jpg',
     },
 ];

@@ -71,7 +71,7 @@ export default async (req, res) => {
         opennow: true,
         maxprice: Number(req.query.maxPrice),
         minprice: Number(req.query.minPrice),
-        // keyword: req.query.keyword || '',
+        keyword: req.query.keyword || '',
         rankby: PlacesNearbyRanking.prominence,
         location: await getLocation(client, req.query),
     };
