@@ -109,7 +109,7 @@ const PlaceCard: FunctionComponent<Props> = ({
                     text-decoration: none;
                     margin-bottom: 1.5rem;
                     color: black;
-                    box-shadow: 0.5rem 0.5rem;
+                    /* box-shadow: 0.5rem 0.5rem; */
                 }
 
                 .image {
@@ -133,7 +133,7 @@ const PlaceCard: FunctionComponent<Props> = ({
                     background: white;
                     color: black;
                     border: 0.2rem solid black;
-                    border-top: none;
+                    /* border-top: none; */
                 }
 
                 .name {
