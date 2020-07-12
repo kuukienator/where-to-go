@@ -47,26 +47,41 @@ const PlacesList: FC<Props> = ({ places, openSearch }) => {
                 className="floatingSearchButton"
                 onClick={() => openSearch()}
             >
-                <SearchIcon fill="white" width="40" height="40" />
+                <span>Try something else</span>
+                <SearchIcon
+                    fill="white"
+                    style={{ width: '1.6rem', height: '1.6rem' }}
+                />
             </button>
             <style jsx>{`
                 .placesContainer {
                     width: 100%;
+                    margin-bottom: 3.5rem;
                 }
 
                 .floatingSearchButton {
                     position: fixed;
                     right: 0;
-                    bottom: 100px;
                     background: black;
 
+                    color: white;
+                    bottom: 0;
+                    width: 100%;
                     border: none;
-                    border-radius: none;
+                    border-radius: 0;
+                    height: 3.5rem;
 
-                    padding: 0.5rem 1rem;
-                    padding-left: 0.5rem;
+                    font-family: 'Bitter', serif;
+                    font-family: 'Zilla Slab', serif;
+                    font-size: 1.6rem;
 
-                    border-radius: 0.5rem 0 0 0.5rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .floatingSearchButton span {
+                    margin-right: 0.5rem;
                 }
             `}</style>
         </div>

@@ -1,5 +1,6 @@
 import react, { useState, FC } from 'react';
 import TextButton from '../TextButton';
+import SearchIcon from '../../svg-icons/iconmonstr-magnifier-6.svg';
 
 type Props = {
     openSearch: Function;
@@ -11,6 +12,14 @@ const NoResults: FC<Props> = ({ openSearch }) => {
             <span>No places found :(</span>
             <TextButton onClick={() => openSearch()}>
                 Try something else
+                <SearchIcon
+                    fill="white"
+                    style={{
+                        width: '1.6rem',
+                        height: '1.6rem',
+                        marginLeft: '0.5rem',
+                    }}
+                />
             </TextButton>
             <style jsx>{`
                 span {

@@ -92,11 +92,11 @@ const PlaceCard: FunctionComponent<Props> = ({
                 <div className="inlineCounters">
                     <div>
                         <span>{rating}</span>
-                        <StarIcon fill="white" width="18" height="18" />
+                        <StarIcon fill="black" width="18" height="18" />
                     </div>
                     <div>
                         <span>{priceLevel}</span>
-                        <MoneyIcon fill="white" width="18" height="18" />
+                        <MoneyIcon fill="black" width="18" height="18" />
                     </div>
                 </div>
             </div>
@@ -109,6 +109,7 @@ const PlaceCard: FunctionComponent<Props> = ({
                     text-decoration: none;
                     margin-bottom: 1.5rem;
                     color: black;
+                    box-shadow: 0.5rem 0.5rem;
                 }
 
                 .image {
@@ -119,15 +120,6 @@ const PlaceCard: FunctionComponent<Props> = ({
                     position: relative;
                     background-size: cover;
                     background-repeat: no-repeat;
-
-                    /*
-                    border-top-left-radius: 1.5rem;
-                    border-top-right-radius: 1.5rem;
-
-                    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-                        0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-                        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-                    */
                 }
 
                 .information {
@@ -138,14 +130,10 @@ const PlaceCard: FunctionComponent<Props> = ({
                     display: flex;
                     justify-content: space-between;
 
-                    /*
-                    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-                        0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-                        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-
-                    border-bottom-right-radius: 1.5rem;
-                    border-bottom-left-radius: 1.5rem;
-                    */
+                    background: white;
+                    color: black;
+                    border: 0.2rem solid black;
+                    border-top: none;
                 }
 
                 .name {

@@ -9,6 +9,7 @@ import {
     NO_KEYWORD_IDENTIFIER,
 } from '../Search';
 import TextButton from '../TextButton';
+import SearchIcon from '../../svg-icons/iconmonstr-arrow-20.svg';
 
 type Props = {
     onSubmit: (placeRequest: PlaceRequest) => void;
@@ -162,7 +163,17 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
                     />
                     .
                 </div>
-                <TextButton onClick={submitHandler}>Find me a place</TextButton>
+                <TextButton onClick={submitHandler}>
+                    Find me a place
+                    <SearchIcon
+                        fill="white"
+                        style={{
+                            width: '1.6rem',
+                            height: '1.6rem',
+                            marginLeft: '0.5rem',
+                        }}
+                    />
+                </TextButton>
             </div>
             <style jsx>{`
                 .textForm {
