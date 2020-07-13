@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FC } from 'react';
 import Loading from '../Loading';
 import PlacesList, { PlaceEntry } from '../PlacesList';
-import NoResults from '../NewResults';
+import NoResults from '../NoResults';
 
 export const LOCATION_IDENTIFIER = '<GPS location>';
 export const NO_TYPE_IDENTIFIER = 'anthing';
