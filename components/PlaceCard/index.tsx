@@ -96,7 +96,7 @@ const PlaceCard: FunctionComponent<Props> = ({
                     </div>
                     <div>
                         <span>{priceLevel}</span>
-                        <MoneyIcon fill="black" width="18" height="18" />
+                        <MoneyIcon fill="black" width="14" height="18" />
                     </div>
                 </div>
             </div>
@@ -151,6 +151,7 @@ const PlaceCard: FunctionComponent<Props> = ({
                     display: flex;
                     flex-direction: column;
                     border-left: 0.2rem solid;
+                    width: 20%;
                 }
 
                 .inlineCounters > div {
