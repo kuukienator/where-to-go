@@ -55,14 +55,10 @@ const timeBetween = (date: Date, start: Time, end: Time): boolean => {
 };
 
 const getTypeByDate = (date = new Date()): string => {
-    TIME_BASED_TYPES.forEach((e) =>
-        console.log(date, e, timeBetween(date, e.start, e.end))
-    );
     const entry = TIME_BASED_TYPES.find(
         (e) => timeBetween(date, e.start, e.end) === true
     );
 
-    console.log('entry', entry);
     return entry ? entry.type : 'cafe';
 };
 
