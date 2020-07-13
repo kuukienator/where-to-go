@@ -46,7 +46,7 @@ const InlineTextBox: FunctionComponent<Props> = ({
                     font-weight: bold;
                     border-bottom: 0.4rem solid;
                     width: ${hideButton ? '100%' : '85%'};
-                    border-color: ${isValid ? 'black' : '#d62828'};
+                    border-color: ${isValid ? 'black' : '#e8505b'};
                 }
                 .container {
                     display: flex;
