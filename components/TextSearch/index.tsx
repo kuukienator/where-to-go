@@ -49,9 +49,15 @@ const TIME_BASED_TYPES: Array<{ start: Time; end: Time; type: string }> = [
 ];
 
 const timeBetween = (date: Date, start: Time, end: Time): boolean => {
-    const hours = date.getHours();
-    const mins = date.getMinutes();
-    return hours >= start.hours && hours < end.hours && mins >= start.mins;
+    const startDate = new Date(date.getTime());
+    startDate.setHours(start.hours);
+    startDate.setMinutes(start.mins);
+
+    const endDate = new Date(date.getTime());
+    endDate.setHours(end.hours);
+    endDate.setMinutes(end.mins);
+
+    return startDate <= date && endDate > date;
 };
 
 const getTypeByDate = (date = new Date()): string => {
