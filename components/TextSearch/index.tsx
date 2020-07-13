@@ -15,6 +15,60 @@ type Props = {
     onSubmit: (placeRequest: PlaceRequest) => void;
 };
 
+type Time = {
+    hours: number;
+    mins: number;
+};
+
+const TIME_BASED_TYPES: Array<{ start: Time; end: Time; type: string }> = [
+    {
+        start: { hours: 5, mins: 30 },
+        end: { hours: 11, mins: 45 },
+        type: 'cafe',
+    },
+    {
+        start: { hours: 11, mins: 45 },
+        end: { hours: 14, mins: 0 },
+        type: 'restaurant',
+    },
+    {
+        start: { hours: 14, mins: 0 },
+        end: { hours: 18, mins: 30 },
+        type: 'cafe',
+    },
+    {
+        start: { hours: 18, mins: 30 },
+        end: { hours: 20, mins: 30 },
+        type: 'restaurant',
+    },
+    {
+        start: { hours: 20, mins: 30 },
+        end: { hours: 5, mins: 30 },
+        type: 'bar',
+    },
+];
+
+const timeBetween = (date: Date, start: Time, end: Time): boolean => {
+    const hours = date.getHours();
+    const mins = date.getMinutes();
+    return hours >= start.hours && hours < end.hours && mins >= start.mins;
+};
+
+const getTypeByDate = (date = new Date()): string => {
+    TIME_BASED_TYPES.forEach((e) =>
+        console.log(date, e, timeBetween(date, e.start, e.end))
+    );
+    const entry = TIME_BASED_TYPES.find(
+        (e) => timeBetween(date, e.start, e.end) === true
+    );
+
+    console.log('entry', entry);
+    return entry ? entry.type : 'cafe';
+};
+
+const getEntryByValue = (entries: DropdownEntry[], value: string) =>
+    entries.find((e) => e.value === value);
+
 const typeEntries: DropdownEntry[] = [
     { label: 'anything', value: NO_TYPE_IDENTIFIER },
     { label: 'a bar', value: 'bar' },
@@ -68,7 +122,9 @@ const isLocatonValid = (location: string): boolean =>
     location.trim().length > 0;
 
 const TextSearch: FC<Props> = ({ onSubmit }) => {
-    const [type, setType] = useState<DropdownEntry>(typeEntries[1]);
+    const [type, setType] = useState<DropdownEntry>(
+        getEntryByValue(typeEntries, getTypeByDate())
+    );
     const [priceLevel, setPriceLevel] = useState<DropdownEntry>(
         priceLevelEntries[1]
     );
