@@ -1,5 +1,5 @@
-import react, { FunctionComponent } from 'react';
-import MoneyIcon from '../../svg-icons/iconmonstr-currency-1.svg';
+import React, { FunctionComponent } from 'react';
+import MoneyIcon from '../../svg-icons/iconmonstr-currency-6.svg';
 import StarIcon from '../../svg-icons/iconmonstr-star-3.svg';
 
 type Props = {

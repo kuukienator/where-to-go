@@ -1,4 +1,4 @@
-import react, {
+import React, {
     useState,
     useEffect,
     FunctionComponent,
@@ -13,6 +13,7 @@ type Props = {
     onButtonClick: (event) => void;
     hideButton: boolean;
     placeholder?: string;
+    isValid: boolean;
 };
 
 const InlineTextBox: FunctionComponent<Props> = ({
@@ -21,6 +22,7 @@ const InlineTextBox: FunctionComponent<Props> = ({
     onButtonClick,
     hideButton,
     placeholder,
+    isValid,
 }) => {
     return (
         <div className="container">
@@ -44,6 +46,7 @@ const InlineTextBox: FunctionComponent<Props> = ({
                     font-weight: bold;
                     border-bottom: 0.4rem solid;
                     width: ${hideButton ? '100%' : '85%'};
+                    border-color: ${isValid ? 'black' : 'red'};
                 }
                 .container {
                     display: flex;

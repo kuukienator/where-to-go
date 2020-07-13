@@ -91,7 +91,7 @@ const Home = () => {
 
         main {
             flex-grow:2;
-            display: flex;
+            display: block;
             justify-content: center;
             align-items: center;
         }

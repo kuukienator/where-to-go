@@ -1,4 +1,4 @@
-import react, { FC } from 'react';
+import React, { FC } from 'react';
 import PlaceCard from '../PlaceCard';
 import SearchIcon from '../../svg-icons/iconmonstr-magnifier-6.svg';
 
@@ -56,7 +56,7 @@ const PlacesList: FC<Props> = ({ places, openSearch }) => {
             <style jsx>{`
                 .placesContainer {
                     width: 100%;
-                    margin-bottom: 3.5rem;
+                    margin-bottom: 5rem;
                 }
 
                 .floatingSearchButton {

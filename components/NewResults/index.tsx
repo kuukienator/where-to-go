@@ -1,4 +1,4 @@
-import react, { useState, FC } from 'react';
+import React, { useState, FC } from 'react';
 import TextButton from '../TextButton';
 import SearchIcon from '../../svg-icons/iconmonstr-magnifier-6.svg';
 
@@ -24,14 +24,14 @@ const NoResults: FC<Props> = ({ openSearch }) => {
             <style jsx>{`
                 span {
                     text-align: center;
-                    margin-bottom: 2rem;
+                    margin-bottom: 4rem;
                 }
 
                 .noResults {
                     font-family: 'Bitter', serif;
                     font-family: 'Zilla Slab', serif;
                     font-size: 4rem;
-                    height: 100%;
+                    margin-top: 6rem;
                     width: 100%;
                     display: flex;
                     justify-content: center;

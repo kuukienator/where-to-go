@@ -1,4 +1,4 @@
-import react, { useState, FC } from 'react';
+import React, { useState, FC } from 'react';
 
 const Loading = () => {
     return (
@@ -12,7 +12,7 @@ const Loading = () => {
                     font-family: 'Bitter', serif;
                     font-family: 'Zilla Slab', serif;
                     font-size: 4rem;
-                    height: 100%;
+                    margin-top: 6rem;
                     width: 100%;
                     display: flex;
                     justify-content: center;

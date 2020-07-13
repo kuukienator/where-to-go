@@ -1,4 +1,4 @@
-import react, { useState, FC, useEffect } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import InlineTextBox from '../InlineTextBox';
 import InlineSelect, { DropdownEntry } from '../InlineSelect';
 import {
@@ -64,19 +64,23 @@ const getLocation = (): Promise<Location> =>
 const getPermission = async (name: PermissionName) =>
     navigator.permissions.query({ name });
 
+const isLocatonValid = (location: string): boolean =>
+    location.trim().length > 0;
+
 const TextSearch: FC<Props> = ({ onSubmit }) => {
     const [type, setType] = useState<DropdownEntry>(typeEntries[1]);
     const [priceLevel, setPriceLevel] = useState<DropdownEntry>(
         priceLevelEntries[1]
     );
     const [keywords, setKeywords] = useState<DropdownEntry>(keywordsEntries[1]);
-    const [locationQuery, setLocationQuery] = useState('Immermannstr. 40');
+    const [locationQuery, setLocationQuery] = useState('');
     const [location, setLocation] = useState<Location | null>(null);
     const [radius, setRadius] = useState<DropdownEntry>(radiusEntries[1]);
     const [
         locationPermisson,
         setLocationPermission,
     ] = useState<PermissionStatus | null>(null);
+    const [locationValid, toggleLocationValid] = useState<boolean>(true);
 
     useEffect(() => {
         const init = async () => {
@@ -87,6 +91,13 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
     }, []);
 
     const submitHandler = () => {
+        if (!isLocatonValid(locationQuery)) {
+            toggleLocationValid(false);
+            return;
+        } else {
+            toggleLocationValid(true);
+        }
+
         const payload: PlaceRequest = {
             address: locationQuery,
             location,
@@ -106,6 +117,7 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
             console.log(location);
             setLocation(location);
             setLocationQuery(LOCATION_IDENTIFIER);
+            toggleLocationValid(true);
         } catch (e) {
             // TODO: display notification
             console.log('onLocationFinderClick', e);
@@ -120,9 +132,12 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
                 <div className="textContainer">
                     I'm here,
                     <InlineTextBox
-                        onChange={(event) =>
-                            setLocationQuery(event.target.value)
-                        }
+                        onChange={(event) => {
+                            setLocationQuery(event.target.value);
+                            if (!isLocatonValid(event.target.value)) {
+                                toggleLocationValid(true);
+                            }
+                        }}
                         hideButton={
                             locationPermisson &&
                             locationPermisson.state === 'denied'
@@ -130,6 +145,7 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
                         onButtonClick={onLocationFinderClick}
                         value={locationQuery}
                         placeholder="Address, street,..."
+                        isValid={locationValid}
                     />
                     {/* . */}
                 </div>

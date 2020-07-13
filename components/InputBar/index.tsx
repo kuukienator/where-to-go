@@ -1,4 +1,4 @@
-import react, { useState, useEffect, FunctionComponent } from 'react';
+import React, { useState, useEffect, FunctionComponent } from 'react';
 import { Location, PlaceRequest } from '../Search';
 type Props = {
     searchHandler: Function;

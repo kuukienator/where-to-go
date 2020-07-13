@@ -1,4 +1,4 @@
-import react, { useState, useEffect, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import Loading from '../Loading';
 import PlacesList, { PlaceEntry } from '../PlacesList';
 import NoResults from '../NewResults';

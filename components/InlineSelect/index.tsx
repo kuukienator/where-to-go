@@ -1,4 +1,4 @@
-import react, {
+import React, {
     useState,
     useEffect,
     FunctionComponent,
