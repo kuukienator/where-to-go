@@ -267,6 +267,13 @@ const TextSearch: FC<Props> = ({ onSubmit }) => {
                     font-weight: bold;
                     text-decoration: underline;
                 }
+                @media (min-width: 900px) {
+                    .textForm {
+                        width: 60vw;
+                        max-width: 900px;
+                        margin: 0 auto;
+                    }
+                }
             `}</style>
         </>
     );
