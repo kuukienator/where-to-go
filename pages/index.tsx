@@ -5,6 +5,7 @@ import { useState } from 'react';
 import InlineTextBox from '../components/InlineTextBox';
 import TextSearch from '../components/TextSearch';
 import Loading from '../components/Loading';
+import Information from '../components/Information';
 
 enum Pages {
     Search = 'Search',
@@ -47,6 +48,7 @@ const Home = () => {
                         }}
                     />
                 )}
+                <Information />
                 {/* <Search /> */}
             </main>
             {/* <footer>
