@@ -57,6 +57,10 @@ const PlacesList: FC<Props> = ({ places, openSearch }) => {
                 .placesContainer {
                     width: 100%;
                     margin-bottom: 5rem;
+                    display: flex;
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    flex-wrap: wrap;
                 }
 
                 .floatingSearchButton {
@@ -82,6 +86,18 @@ const PlacesList: FC<Props> = ({ places, openSearch }) => {
 
                 .floatingSearchButton span {
                     margin-right: 0.5rem;
+                }
+
+                @media (min-width: 700px) {
+                    .placesContainer {
+                        grid-template-columns: 1fr 1fr;
+                    }
+                }
+
+                @media (min-width: 1280px) {
+                    .placesContainer {
+                        grid-template-columns: 1fr 1fr 1fr;
+                    }
                 }
             `}</style>
         </div>

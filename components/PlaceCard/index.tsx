@@ -104,10 +104,11 @@ const PlaceCard: FunctionComponent<Props> = ({
             <style jsx>{`
                 .placeCard {
                     font-family: inherit;
-                    margin: 0.5rem 1rem;
-                    display: block;
+                    padding: 0.5rem 1rem;
+                    display: flex;
+                    flex-direction: column;
                     text-decoration: none;
-                    margin-bottom: 1.5rem;
+                    padding-bottom: 1.5rem;
                     color: black;
                     /* box-shadow: 0.5rem 0.5rem; */
                 }
@@ -133,6 +134,7 @@ const PlaceCard: FunctionComponent<Props> = ({
                     background: white;
                     color: black;
                     border: 0.2rem solid black;
+                    flex-grow: 1;
                     /* border-top: none; */
                 }
 
